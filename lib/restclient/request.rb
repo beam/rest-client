@@ -93,15 +93,12 @@ module RestClient
         end
       end
 
-      # Set some other default SSL options, but only if we have an HTTPS URI.
-      if use_ssl?
-
-        # If there's no CA file, CA path, or cert store provided, use default
-        if !ssl_ca_file && !ssl_ca_path && !@ssl_opts.include?(:cert_store)
-          @ssl_opts[:cert_store] = self.class.default_ssl_cert_store
-        end
+      # If there's no CA file, CA path, or cert store provided, use default
+      if !ssl_ca_file && !ssl_ca_path && !@ssl_opts.include?(:cert_store)
+        @ssl_opts[:cert_store] = self.class.default_ssl_cert_store
       end
 
+        
       @tf = nil # If you are a raw request, this is your tempfile
       @max_redirects = args[:max_redirects] || 10
       @processed_headers = make_headers headers
